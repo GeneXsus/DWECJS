@@ -1,6 +1,6 @@
 "use strict"
 //variables globales
-var fecha_actual,annos,fecha_usuario_split,fecha_transformada
+var fecha_actual,annos,fecha_usuario_split,fecha_transformada 
 var fecha_usuario = prompt('Introduza su fecha de nacimiento (ejem: 23-ene-2010')
 //funciones
 
@@ -72,7 +72,10 @@ function fechaCorrecta(){
 
 while (fecha_usuario=='null'|| fecha_usuario=='' || !cambiarMes() || !fechaCorrecta()){
     alert('error en la fecha introducida');
-    fecha_usuario = prompt('Introduza su fecha de nacimiento (ejem: 23-ene-2010')
+    fecha_usuario = prompt('Introduza su fecha de nacimiento (ejem: 23-ene-2010');
 };
-
-document.write("Tiene "+( fecha_actual.getFullYear() - fecha_transformada.getFullYear())+" años")
+annos =  fecha_actual.getFullYear() - fecha_transformada.getFullYear();
+if(fecha_actual.getMonth() < fecha_transformada.getMonth() || (fecha_actual.getMonth() == fecha_transformada.getMonth() &&  fecha_actual.getDate() < fecha_transformada.getDate())){
+    annos--;
+}
+document.write("Tiene "+annos+" años")
