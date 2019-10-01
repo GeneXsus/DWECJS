@@ -15,8 +15,8 @@ function numerosAleatorios(){
     
 }
 function solicitarApuesta(){
-    apuesta=prompt('¿Qué número será más grande el A o el B_')
-    while (apuesta !=null && (apuesta!="A" && apuesta!="B")){
+    apuesta=prompt('¿Qué número será más grande el A o el B?').toLocaleLowerCase()
+    while (apuesta !=null && (apuesta!="a" && apuesta!="b")){
         apuesta = prompt(' ERROR Elija entre A o B');
     };
 }
@@ -92,8 +92,8 @@ do{
 
 // //solicita la apuesta
 // function solicitarApuesta(){
-//     apuesta = prompt('¿Qué número será más grande el A o el B?');
-//     while (apuesta!="A" && apuesta!="B"){
+//     apuesta = prompt('¿Qué número será más grande el A o el B?').toLocaleLowerCase();
+//     while (apuesta!="a" && apuesta!="b"){
 //         apuesta = prompt(' ERROR Elija entre A o B');
 //     };
 //     //ejecutamos respuesta.
