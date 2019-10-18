@@ -1,9 +1,11 @@
 "use strict"
+import {Partido, isNumberValid,ordenarVotos,ordenarEscanos} from "./modulo.mjs"
 // variables globales
 let partidos_votos = [],
     votos_divididos = [],
     partidos_votos_divididos_tem = [],
-    nombre, votos, numero_de_escanos = 5;
+    nombre, votos, numero_de_escanos = 0;
+
 let numero_de_partidos = 0,
     suma_votos = 0,
     salir = false;
@@ -34,8 +36,8 @@ function annadirPartidos() {
 //Funcion para calcular el porcentaje de votos
 function calcularPorcentaje() {
     for (let partido of partidos_votos) {
-        let porcentaje = (partido[1] * 100) / suma_votos;
-        partido[2] = porcentaje.toFixed(2)
+        let porcentaje = (partido.votos * 100) / suma_votos;
+        partido.porcentaje = porcentaje.toFixed(2)
 
     }
 
@@ -52,13 +54,13 @@ function visualizarPartidosPorcentaje() {
         "</tr>";
     for (let partido of partidos_votos) {
         tabla = tabla + "<tr>" +
-            "<td>" + partido[0] + "</td>" +
-            "<td>" + partido[1] + "</td>" +
-            "<td>" + partido[2] + "%</td>" +
+            "<td>" + partido.nombre + "</td>" +
+            "<td>" + partido.votos + "</td>" +
+            "<td>" + partido.porcentaje + "%</td>" +
             "</tr>";
     }
     tabla = tabla + "</table><br/>";
-    document.write(tabla);
+    document.getElementById("tabla1").innerHTML=tabla
 }
 
 //funcion para visualizar los votos divididos por escaños y agregar datos a un array para ordenar luego
@@ -68,35 +70,36 @@ function visualizarVotosEscanos() {
     for (let x = 1; x <= numero_de_escanos; x++) {
         cabeceraTabla += `<th>votos/${x}</th>`;
     }
-
-    partidos_votos.forEach((partido, index) => {
-        if (partido[2] > 3) {
-            cuerpoTabla += `<tr><td>${partido[0]}</td>`;
+    partidos_votos.forEach((element,index) => {
+        if (element.porcentaje > 3) {
+            cuerpoTabla += `<tr><td>${element.nombre}</td>`;
             for (let x = 1; x <= numero_de_escanos; x++) {
                 votos_divididos[index] = [];
-                votos_divididos[index].push(parseInt(partido[1]) / x);
-                cuerpoTabla += `<td>${(parseInt(partido[1])/x).toFixed(2)}</td>`;
-                partidos_votos_divididos_tem.push([index, partido[1] / x, partido[1], partido[0]]);
+                votos_divididos[index].push(parseInt(element.votos) / x);
+                cuerpoTabla += `<td>${(parseInt(element.votos)/x).toFixed(2)}</td>`;
+                partidos_votos_divididos_tem.push([index, element.votos / x, element.votos, element.nombre]);
             }
             cuerpoTabla += '</tr>';
         }
     });
+
     cabeceraTabla += "</tr>";
     let tabla = "<table border=1>" + cabeceraTabla + cuerpoTabla + "</table> <br/>";
-    document.write(tabla);
+
+    document.getElementById("tabla2").innerHTML=tabla
 }
 
 // calcular los escaños que tiene un partido
 function calcularEscanos() {
     ordenarPorVotosDiv();
     for (let x = 0; x < numero_de_escanos; x++) {
-        partidos_votos[partidos_votos_divididos_tem[x][0]][3] = partidos_votos[partidos_votos_divididos_tem[x][0]][3] + 1;
+        partidos_votos[partidos_votos_divididos_tem[x][0]].incrementarEscanos();
     }
 }
 
 //Mostrar la tabla de los escaños
 function mostrarTablaEscanos() {
-    ordenarNumeroPosicion(partidos_votos, 3);
+    ordenarEscanos(partidos_votos);
     let tabla = "<table border=1>" +
         "<tr>" +
         "<th>Partidos</th>" +
@@ -104,30 +107,18 @@ function mostrarTablaEscanos() {
         "<tr>";
     for (let partido of partidos_votos) {
         tabla = tabla + "<tr>" +
-            "<td>" + partido[0] + "</td>" +
-            "<td>" + partido[3] + "</td>" +
+            "<td>" + partido.nombre + "</td>" +
+            "<td>" + partido.escanos + "</td>" +
             "</tr>";
 
     }
     tabla = tabla + "</table><br/>"
-    document.write(tabla);
+
+    document.getElementById("tabla3").innerHTML=tabla
 }
 
 
-// ordenar por una posicion de un array
-function ordenarNumeroPosicion(array, posicion) {
-    array.sort((a, b) => {
-        let dato1 = parseInt(a[posicion]);
-        let dato2 = parseInt(b[posicion]);
-        if (dato1 > dato2) {
-            return -1;
-        } else if (dato1 < dato2) {
-            return 1;
-        } else {
-            return 0;
-        }
-    });
-}
+
 
 //ordenar por votos u por votos divididos
 function ordenarPorVotosDiv() {
@@ -153,14 +144,6 @@ function ordenarPorVotosDiv() {
 }
 
 
-// comprobar si es una entrada numerica valida
-function isNumberValid(numero) {
-    if (!isNaN(numero) && numero!="" || (numero == null || numero == '*' || numero.toLowerCase() == 'f')) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 
 numero_de_escanos = prompt('Elija el numero de escaños "*" o "F"->Fin')
@@ -171,7 +154,7 @@ if (numero_de_escanos != null && numero_de_escanos != '*' && numero_de_escanos.t
 
     while (!salir) {
         if (annadirPartidos()) {
-            partidos_votos[numero_de_partidos] = [nombre, votos, 0, 0];
+            partidos_votos[numero_de_partidos] =  new Partido(nombre, votos);
             numero_de_partidos++;
             suma_votos += parseInt(votos);
             salir = false;
@@ -181,9 +164,10 @@ if (numero_de_escanos != null && numero_de_escanos != '*' && numero_de_escanos.t
     }
 
     calcularPorcentaje();
-    ordenarNumeroPosicion(partidos_votos, 1);
+    ordenarVotos(partidos_votos);
     visualizarPartidosPorcentaje();
     visualizarVotosEscanos();
     calcularEscanos();
     mostrarTablaEscanos();
+
 }
