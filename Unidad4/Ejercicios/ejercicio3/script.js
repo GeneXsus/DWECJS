@@ -6,24 +6,40 @@
 // usuario. 
 
 "use strict"
+
+import { Gasolinera, validarNumeroPositivo, validarNumeroSalida} from "./modulo.mjs"
 //variables globales
-let gas_llen=0, preci_llen=1.30
+let gas_llen=0, preci_llen=1.30, salir=false, o_Gasolinera;
 //finciones
 function crearGasolinera(){
     gas_llen=prompt("¿Cuanta gasolina tiene la gasolinera?");
     while(!validarNumeroPositivo(gas_llen)){
         gas_llen=prompt("Error tiene que poner una cantidad de gasolina");
     }
-    preci_llen=prompt("¿Cuanta vale la gasolina?");
+    preci_llen=prompt("¿Cuanto vale la gasolina?");
     while(!validarNumeroPositivo(preci_llen)){
         preci_llen=prompt("Error tiene que poner un precio");
     }
+    o_Gasolinera= new Gasolinera(preci_llen,gas_llen)
     
 }
 function funcionamientoGasolinera(){
-    let salir=false;
+    
     while (!salir){
-        let gasolina_cant= prompt("cuanta")
+        let gasolina_cant= prompt("¿cuanta gasolina quiere gastar(Cancelar para salir)")
+        while (!validarNumeroSalida(gasolina_cant)){
+            gasolina_cant= prompt("Error tiene que poner una cantidad de gasolina (Cancelar para salir)")
+        }
+        if(gasolina_cant==null){
+            salir=true;
+        }else{
+            o_Gasolinera.vaciar(gasolina_cant);
+            if(o_Gasolinera.litros==0){
+                document.getElementById('vacio').innerHTML="<h1>No queda gasolina</h1>";
+                salir=true ;
+            }
+        }
+
 
     }
 
@@ -32,4 +48,5 @@ function funcionamientoGasolinera(){
 
 //cuerpo
 crearGasolinera()
+funcionamientoGasolinera();
 
