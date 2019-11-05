@@ -1,0 +1,33 @@
+.contenedor{
+    width: 500px;
+    margin: 30px auto;
+
+}
+h1{
+    width: 100%;
+    text-align: center;
+    border-radius: 10px;
+    background: lightgray;
+    color: green;
+    padding: 5px 5px 7px 5px;
+    font-size: 1.2rem;
+}
+.content-bloque{
+    position: relative;
+    padding-bottom: 20px;;
+}
+.bloque{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.form-check{
+    position: static;
+}
+.aceptar-condi{
+    margin-bottom: 15px;
+}
+.botones{
+    display: flex;
+    justify-content: space-around;
+}

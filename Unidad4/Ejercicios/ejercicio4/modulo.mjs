@@ -7,25 +7,36 @@ export function validarNumeroPositivo(numero){
     }
 }
 export function validarNIF(value){
-    var validChars = 'TRWAGMYFPDXBNJZSQVHLCKET';
-    var nifRexp = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]{1}$/i;
-    var nieRexp = /^[XYZ]{1}[0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKET]{1}$/i;
-    var str = value.toString().toUpperCase();
-    
-    if (!nifRexp.test(str) && !nieRexp.test(str)) return false;
-    
-    var nie = str
-        .replace(/^[X]/, '0')
-        .replace(/^[Y]/, '1')
-        .replace(/^[Z]/, '2');
-    
-    var letter = str.substr(-1);
-    var charIndex = parseInt(nie.substr(0, 8)) % 23;
-    
-    if (validChars.charAt(charIndex) === letter) return true;
+    let char_index;
+    let value_number= value.substr(0, 8);
+    let valid_chars = 'TRWAGMYFPDXBNJZSQVHLCKET';
+    let str = value.toString().toUpperCase();
+    let letter = str.substr(-1);
+    if(!isNaN(value_number))return true;
+    char_index=parseInt(value_number) % 23;
+    if (valid_chars.charAt(char_index) === letter) return true;
     
     return false;
       
+}
+export function validarNumDig(numero,digitos){
+    if(isNaN(numero)){
+        return false
+    }else if(numero.length ==digitos){
+        return true 
+    }else{
+        return false 
+    }
+    // let regex= new RegExp("[0-9]{"+digitos+"}",'i');
+    // return regex.test(numero+"");
+}
+export function estaRelleno(texto){
+    if(texto==null || texto==""){
+        return false 
+    }else{
+        return true
+    }
+
 }
 
 export class Empresa{
@@ -55,13 +66,16 @@ export class Elemento{
 //  (importe total, tipo de IVA, forma de
 // pago).
 export class Factura{
-    constructor(i_iva,forma){
+    constructor(i_iva){
         this.iva=i_iva;
-        this.forma_pago=forma;
+        this.forma_pago='';
         this.o_Empresa;
         this.o_Cliente;
         this.a_elementos=[];
         this.importe_total=0;
+    }
+    anadirFormaPago(pago){
+        this.forma_pago=pago;
     }
     anadirEmpresa(empresa){
         this.o_Empresa=empresa;
@@ -76,5 +90,6 @@ export class Factura{
         this.a_elementos.forEach(elemento => {
             this.importe_total+= (elemento.precio * elemento.cantidad);
         });
+        this.importe_total+= (this.importe_total*(this.iva/100))
     }
 }

@@ -1,0 +1,10 @@
+.capa{
+    width: 400px;
+    height: 200px;
+    margin-left: 5px;
+    border: 1px solid black;
+    display: block;
+    float: left;
+    clear: both;
+    cursor: pointer;
+}

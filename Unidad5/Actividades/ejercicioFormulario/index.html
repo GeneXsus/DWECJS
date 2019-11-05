@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="librerias/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class='contenedor'>
+        
+    <h1>Encuesta política</h1>
+    <form id='formulario'  method="get" novalidate>
+        <div class="form-group" >
+            <label   for='nombre'>
+                Nombre y apellidos:
+            </label>
+            <input type="text" id='nombre' name="nombre" required class="form-control">
+            <div class="invalid-feedback">
+                <span>
+
+                    Por favor, rellene su nombre y apellidos.
+                </span>
+            </div>
+        </div>
+        <div class="form-group content-bloque" >
+            <label   for='Genero'>
+                Género:
+            </label>
+            <div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" required type="radio" name="genero" id="masculino" value="masculino">
+                    <label class="form-check-label" for="masculino">Masculino</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input"  required type="radio" name="genero" id="femenino" value="femenino">
+                    <label class="form-check-label" for="femenino">Femenino</label>
+                    <div class="invalid-feedback check bloque">
+                        <span>
+                            Por favor, seleccione su genero.
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+    
+        </div>
+        <div class="form-group" >
+            <label   for='edad'>
+                Edad:
+            </label>
+            <input type="number" id='edad' name="edad" required class="form-control">
+            <div class="invalid-feedback">
+                    <span>
+                        Por favor, rellene su edad.
+                    </span>
+            </div>
+        </div>
+        <div class="form-group" >
+            <label   for='estudios'>
+                Nivel de estudios:
+            </label>
+            <select class="form-control" id="estudios" required >
+                <option value="" selected disabled>Seleccionar ...</option>
+                <option value='ningunos'>Ningunos</option>
+                <option value='eso'>ESO</option>
+                <option value='grado'>Grado Superior</option>
+                <option value='universidad'>Universidad</option>
+            </select>
+            <div class="invalid-feedback">
+                <span>
+                    Por favor, seleccione su nivel de estudios.
+                </span>
+            </div>
+        </div>
+        <div class="form-group" >
+            <label   for='fecha'>
+                Fecha Encuesta:
+
+            </label>
+            <input type="date" id='fecha' name="fecha" required class="form-control" placeholder="Ejemplo: dd/mm/yyyy">
+            <div class="invalid-feedback">
+                <span>
+                    Por favor, introduzca la fecha
+                </span>
+            </div>
+        </div>
+        <div class="form-group" >
+            <label   for='cp'>
+                Código Postal:
+            </label>
+            <input type="text" id='cp' name="cp" minlength="5" required class="form-control">
+            <div class="invalid-feedback">
+                <span>
+                    Por favor, introduzca el código postal (5 dígitos) 
+                </span>
+            </div>
+        </div>
+
+        <div  class="form-group content-bloque" >
+            <label   for='votacion'>
+                Opción que votará:
+            </label>
+            <div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" required type="radio" name="votacion" id="NSNC" value="NS/NC">
+                    <label class="form-check-label" for="NSNC">NS/NC</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" required type="radio" name="votacion" id="blanco" value="blanco">
+                    <label class="form-check-label" for="blanco">En blanco</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" required type="radio" name="votacion" id="ciudadanos" value="ciudadanos">
+                    <label class="form-check-label" for="ciudadanos">Ciudadanos</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" required type="radio" name="votacion" id="PP" value="PP">
+                    <label class="form-check-label" for="PP">PP</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" required type="radio" name="votacion" id="PSOE" value="PSOE">
+                    <label class="form-check-label" for="PSOE">PSOE</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" required type="radio" name="votacion" id="podemos" value="podemos">
+                    <label class="form-check-label" for="podemos">Unidos podemos</label>
+                </div>                  
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" required type="radio" name="votacion" id="otros" value="otros">
+                    <label class="form-check-label" for="otros">Otros</label>
+                    <div class="invalid-feedback bloque">
+                            <span>
+                                Por favor, seleccione el partido
+                            </span>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        <div class="form-group" >
+            <label   for='observaciones'>
+                Observaciones:
+            </label>
+            <textarea name="observaciones"  class="form-control"></textarea>
+        </div>
+        <div class="form-check aceptar-condi">
+            <input type="checkbox" required class="form-check-input" id="condiciones">
+            <label class="form-check-label" for="condiciones">Aceptar condiciones</label>
+            <div class="invalid-feedback">
+                <span>
+                    Por favor, acepte las condiciones
+                </span>
+            </div>
+        </div>
+        <div class="botones">
+            
+            <button id='aceptar' type="submit" class="btn btn-light">Aceptar</button>
+            <button id='cancelar' class="btn btn-light">Cancelar</button>
+        </div>
+    </form>
+</div>
+
+<script src="../librerias/bootstrap/js/bootstrap.min.js"></script>
+<script src="scripts.js"></script>
+</body>
+</html>
