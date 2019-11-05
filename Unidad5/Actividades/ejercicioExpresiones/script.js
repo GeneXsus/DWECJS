@@ -14,7 +14,7 @@ window.addEventListener("load", ()=>{
         //  /^4\d{3}-?\d{4}-?\d{4}-?\d{4}$/
     //MasterCard
         //  /^5[1-5]\d{2}-?\d{4}-?\d{4}-?\d{4}$/
-    document.getElementById('botonInput9').addEventListener("click",function(){comprobarexpresion('input9',/^(4\d{3}-?\d{4}-?\d{4}-?\d{4})|(5[1-5]\d{2}-?\d{4}-?\d{4}-?\d{4})$/)});
+    document.getElementById('botonInput9').addEventListener("click",function(){comprobarexpresion('input9',/^(4\d{3}\d{4}\d{4}\d{4})|(4\d{3}-\d{4}-\d{4}-\d{4})|(5[1-5]\d{2}\d{4}\d{4}\d{4})|(5[1-5]\d{2}-\d{4}-\d{4}-\d{4})$/)});
     document.getElementById('botonInput10').addEventListener("click",function(){comprobarexpresion('input10',/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/)});
     document.getElementById('botonInput11').addEventListener("click",function(){comprobarexpresion('input11',/^[8-9](\d{8})$/)});
 });
