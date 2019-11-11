@@ -2,7 +2,7 @@
 //variables globales
 let in_usuario = document.getElementById('usuario');
 let in_password = document.getElementById('contrasena');
-let arrayUsuarios=[]
+let arrayUsuarios= cargarListaCookie();
 in_usuario.placeH_last = in_usuario.placeholder;
 in_password.placeH_last = in_password.placeholder;
 window.addEventListener('load',function(){
@@ -18,58 +18,47 @@ window.addEventListener('load',function(){
             evento.preventDefault();
             evento.stopPropagation();
         }
-
     });
-
-
     in_usuario.addEventListener('focus',function(){
         resetPlaceholder(this);
     });
-
     in_password.addEventListener('focus',function(){
         resetPlaceholder(this);
-        arrayUsuarios=cargarListaCookie();
         if (arrayUsuarios[in_usuario.value]){
             this.value= arrayUsuarios[in_usuario.value];
         }
     });
-    
 
 });
-
-
-
-
 
 
 //funciones
 function resetPlaceholder(elemento){
     elemento.placeholder= elemento.placeH_last;
-
 }
+
 function comprobarDatos(){
-    let correcto=true;
-    if(in_usuario.value== ''){
-        correcto=false;
-        in_usuario.placeholder='Tiene que rellenar este campo';
-        in_usuario.classList.add('is-invalid');
-        in_usuario.classList.remove('is-valid');
-    }else{
-        in_usuario.classList.remove('is-invalid');
-        in_usuario.classList.add('is-valid');
-    }
+    let correcto= true;
+    if(!comprobarRelleno(in_usuario)) 
+        correcto= false;
+    if(!comprobarRelleno(in_password)) 
+        correcto= false;
 
-    if( in_password.value== ''){
-        correcto=false;
-        in_password.placeholder='Tiene que rellenar este campo';
-        in_password.classList.add('is-invalid');
-        in_password.classList.remove('is-valid');
-    }else{
-        in_password.classList.remove('is-invalid');
-        in_password.classList.add('is-valid');
+    return correcto ;
+}
 
+function comprobarRelleno(elemento){
+    if( elemento.value== ''){
+        elemento.placeholder='Tiene que rellenar este campo';
+        elemento.classList.add('is-invalid');
+        elemento.classList.remove('is-valid');
+        return false 
+    }else{
+        resetPlaceholder(elemento);
+        elemento.classList.remove('is-invalid');
+        elemento.classList.add('is-valid');
+        return  true
     }
-    return correcto
 }
 
 function cargarListaCookie(){

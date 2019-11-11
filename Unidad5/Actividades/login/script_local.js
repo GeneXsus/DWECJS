@@ -40,36 +40,33 @@ window.addEventListener('load',function(){
 
 });
 
-
-
-
 //funciones
 function resetPlaceholder(elemento){
     elemento.placeholder= elemento.placeH_last;
 
 }
 function comprobarDatos(){
-    let correcto=true;
-    if(in_usuario.value== ''){
-        correcto=false;
-        in_usuario.placeholder='Tiene que rellenar este campo';
-        in_usuario.classList.add('is-invalid');
-        in_usuario.classList.remove('is-valid');
-    }else{
-        in_usuario.classList.remove('is-invalid');
-        in_usuario.classList.add('is-valid');
-    }
+    let correcto= true;
+    if(!comprobarRelleno(in_usuario)) 
+        correcto= false;
+    if(!comprobarRelleno(in_password)) 
+        correcto= false;
 
-    if( in_password.value== ''){
-        correcto=false;
-        in_password.placeholder='Tiene que rellenar este campo';
-        in_password.classList.add('is-invalid');
-        in_password.classList.remove('is-valid');
-    }else{
-        in_password.classList.remove('is-invalid');
-        in_password.classList.add('is-valid');
-
-    }
-    return correcto
+    return correcto ;
 }
+
+function comprobarRelleno(elemento){
+    if( elemento.value== ''){
+        elemento.placeholder='Tiene que rellenar este campo';
+        elemento.classList.add('is-invalid');
+        elemento.classList.remove('is-valid');
+        return false 
+    }else{
+        resetPlaceholder(elemento);
+        elemento.classList.remove('is-invalid');
+        elemento.classList.add('is-valid');
+        return  true
+    }
+}
+
 
