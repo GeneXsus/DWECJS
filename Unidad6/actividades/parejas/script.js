@@ -149,11 +149,6 @@ class Juego {
 }
 
 
-
-
-
-
-
 //funciones
 
 function creacionDom() {
@@ -199,10 +194,14 @@ function iniciarJuego(){
     }
     juego.prepararJuego();
     
-
-
+}
+function volverAJugar(){
+    let juegoDom=document.getElementById("juego");
+    juegoDom.parentNode.removeChild(juegoDom);
+    creacionDom()
 
 }
+
 
 
 //funciones auxiliares
@@ -267,12 +266,6 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 
-function volverAJugar(){
-    let juegoDom=document.getElementById("juego");
-    juegoDom.parentNode.removeChild(juegoDom);
-    creacionDom()
-
-}
 
 
 
