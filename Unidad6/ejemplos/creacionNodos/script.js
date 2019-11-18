@@ -9,16 +9,13 @@ window.addEventListener("load", ()=>{
 })
 
 function crearBotones(){
-    let capa=document.createElement("div");
-    // establecer atributos a la capa
-    capa.setAttribute("id", "capaBotones");
-    // añadir la capa al html
-    document.body.appendChild(capa);
-    creaBoton('addEle','Insertar elemento',capa,false);
-    creaBoton('editEle','Modificar elemento',capa,true);
-    creaBoton('delEle','Borrar elemento',capa,true);
-    creaBoton('addBEle','Modificar elemento',capa,true);
+    let capa= creaElemento('div',false,null,'capabotones',document.body)
+    creaElemento('button',false,'Insertar elemento','addEle',capa,null,false);
+    creaElemento('button',false,'Modificar elemento','editEle',capa,null,true);
+    creaElemento('button',false,'Borrar elemento','delEle',capa,null,true);
+    creaElemento('button',false,'Añadir antes elemento','addBEle',capa,null,true);
 }
+
 
 function asigEventBoton(){
     document.getElementById("addEle").addEventListener("click",addElemento)
@@ -28,20 +25,14 @@ function asigEventBoton(){
 }
 
 function crearCapalista(){
-    let capa=document.createElement("div");
-    let lista= document.createElement("ol");
-    capa.setAttribute("id","capaLista");
-    lista.setAttribute('id','list');
-    capa.appendChild(lista);
-    document.body.appendChild(capa);
+    let capa=creaElemento('div',false,null,'capaLista',document.body)
+    creaElemento('ol',false,null,'list',capa);
 }
 
 function addElemento(){
-    let item= document.createElement("li");
-    let texto=document.createTextNode(`Elemento ${contador}`);
+    let texto=creaElemento(null,true,`Elemento ${contador}`);
     let lista= document.getElementById('list');
-    item.appendChild(texto);
-    lista.appendChild(item);
+    creaElemento('li',false,null,null,lista,texto);;
     contador++;
     if(lista.childNodes.length==1){
         habDesBot(false)
@@ -50,30 +41,64 @@ function addElemento(){
 }
 
 function editElemento(){
+    let texto=creaElemento(null,true,`Elemento ${contador}`);
+    let item= creaElemento('li',false,null,null,null,texto);
+    document.getElementById('list').replaceChild(item, document.getElementById("list").lastChild);
+    contador++;
     
 }
 
 function delElemento(){
-    
-}
-
-function addBElemento(){
-    
-}
-
-function habDesBot(valor){
-    for (let ele of document.getElementsByTagName('button')){
-        ele.disabled=valor;
+    document.getElementById('list').removeChild(document.getElementById("list").lastChild);
+    contador--;
+    if(!document.getElementById('list').hasChildNodes()){
+        habDesBot(true);
+        contador=1;
     }
 }
 
+function addBElemento(){
+    let texto=creaElemento(null,true,`Elemento ${contador}`,null,null,null,null);
+    let item= creaElemento('li',false,null,null,null,texto);
+    document.getElementById('list').insertBefore(item, document.getElementById("list").lastChild);
+    contador++;
+}
 
-function creaBoton(id,texto,lugar,disabled){
-    let boton= document.createElement('button');
-    //establecer attributos
-    boton.setAttribute('type','button');
-    boton.setAttribute('id',id);
-    boton.innerText = texto;
-    boton.disabled=disabled;
-    lugar.appendChild(boton);
+function habDesBot(valor){
+    document.getElementById("editEle").disabled=valor;
+    document.getElementById("delEle").disabled=valor;
+    document.getElementById("addBEle").disabled=valor;
+}
+
+
+function creaElemento(tipo,isTextNode=false,texto=null,id=null,lugar=null,contenido=null,disabled=null){
+    let elemento;
+    if(isTextNode){
+        elemento=document.createTextNode(texto);
+    }else{
+        elemento= document.createElement(tipo);
+        //establecer attributos
+        if(id !=null){
+            elemento.setAttribute('id',id);
+        }
+    
+        if(texto != null){
+            elemento.innerText = texto;
+        }
+    
+        if(contenido != null){
+            elemento.appendChild(contenido);
+        }
+    
+        if(disabled != null){
+            elemento.disabled=disabled;
+        }
+    
+    }
+    
+    if(lugar != null){
+        lugar.appendChild(elemento);
+    }
+
+    return elemento;
 }
