@@ -1,0 +1,41 @@
+#titulo{
+    width: auto;
+    display: inline;
+    position:relative;
+}
+#dialogo{
+    display:none;
+}
+.alimentos{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.animales{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.comida{
+    padding: 5px;
+    border: 1px solid gray;
+    margin: 5px
+}
+.animal{
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border: 1px solid gray;
+    margin: 5px
+}
+.contador{
+    width: 100%;
+}
+#puntos{
+    width: 100%;
+    text-align: center;
+    font-size: 2rem
+}

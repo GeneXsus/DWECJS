@@ -1,0 +1,98 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16-mar-2016, 11:38:20
+    Author     : IES TRASSIERRA
+*/
+
+*{
+    box-sizing: border-box;
+}
+body {
+    background: #F5D0A9;
+}
+
+table {
+    margin: auto;
+    background-color: transparent;
+    border-collapse: collapse;
+
+}
+#dialogo{
+    display: none;
+}
+td {
+    border-collapse: collapse;
+    border: 1px solid black;
+    height: 110px;
+    width: 110px;
+    padding: 5px;
+}
+
+
+#titulo {
+    margin: auto;
+    text-align: center;
+    color: #6E6E6E;
+    font-size: 6em;
+}
+
+#comenzar {
+    padding: 10px;
+    font-size: 1.5rem;
+    margin: 15px auto;
+    width: 160px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: black;
+    background-color: #ff9800;
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+#comenzar:hover {background-color: #f57c00;}
+
+#comenzar:active {
+    background-color: #f57c00;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+#jugadores{
+    margin: 0 auto;
+    width: 350px;
+}
+
+img {
+    height: 95px;
+    width: 95px;
+}
+
+.turnoJugador {
+    color: #0000FF;
+    font-weight: bold;
+}
+.jugadorX{
+    width: 100%;
+    height: 100%;
+    background-image: url(./imagen/imagenX.png);
+}
+.jugador0{
+    width: 100%;
+    height: 100%;
+    background-image: url('./imagen/imagen0.png');
+}
+.ui-droppable-active{
+    background: #666;
+}
+.ui-state-hover{
+    background: #aaa;
+}
+.win{
+    background: #79ec87;
+}
